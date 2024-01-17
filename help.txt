@@ -1,0 +1,116 @@
+
+python --version
+pip --version 
+django-admin --version
+django-admin
+
+>>> python manage.py help
+[auth]
+    changepassword
+    createsuperuser
+
+[contenttypes]
+    remove_stale_contenttypes
+
+[django]
+    check
+    compilemessages
+    createcachetable
+    dbshell
+    diffsettings
+    dumpdata
+    flush
+    inspectdb
+    loaddata
+    makemessages
+    makemigrations
+    migrate
+    optimizemigration
+    sendtestemail
+    shell
+    showmigrations
+    sqlflush
+    sqlmigrate
+    sqlsequencereset
+    squashmigrations
+    startapp
+    startproject
+    test
+    testserver
+
+[sessions]
+    clearsessions
+
+[staticfiles]
+    collectstatic
+    findstatic
+    runserver
+-------------create vm+django-------------------
+
+create repo in github  
+>>> python -m venv env             #env/
+>>> env\Scripts\activate
+>>> pip install django
+>>> python.exe -m pip install --upgrade pip
+>>> pip install djangorestframework
+>>> django-admin startproject mycoffe .
+>>> python manage.py startapp api
+
+-------------open project------------------------
+
+-------------------------------------------------
+django-admin startproject projentname   #creat project name  
+python manage.py runserver            #runserver
+python manage.py migrate   # for update 18 unapplied migration(s)
+python manage.py startapp pages   # for add app  name is pages
+
+python manage.py collectstatic       #static floder
+
+python manage.py createsuperuser    # create new user  (admen)
+
+python manage.py makemigrations  #add models in files django
+python manage.py migrate
+
+
+
+---------------------
+
+pip list
+pip freeze > requirements.txt
+pip3 install -r requirements.txt
+---------------------
+rm db.sqlite3
+
+
+
+
+----------------.bat
+start firefox https://www.google.co.in/
+
+
+---------------------------------------
+{% load static %}
+{% static '' %}
+{% extends  'base.html'  %}
+
+{% include 'partials/_navebar.html' %}
+{% block content %} {% endblock %}
+
+
+
+
+
+
+-----------mysql----------------------------
+>>> pip install mysqlclient
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mycoffeedb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST':'localhost',
+        'PORT':'3306',
+    }
+}
