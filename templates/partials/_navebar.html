@@ -60,15 +60,15 @@
               {% endif %}
               
               >
-                <a class="nav-link dropdown-toggle" href="{% url 'products' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="{% url 'products'  %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Products
                 </a>
                 <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'product' %}">Caffè Americano</a>
-                <a class="dropdown-item" href="{% url 'product' %}">Café Latte</a>
+                <a class="dropdown-item" href="{% url 'product' id=1 %}">Caffè Americano</a>
+                <a class="dropdown-item" href="{% url 'product' id=2 %}">Café Latte</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'product' %}">Cappuccino</a>
-                <a class="dropdown-item" href="{% url 'product' %}">Espresso</a>
+                <a class="dropdown-item" href="{% url 'product'  id=3 %}">Cappuccino</a>
+                <a class="dropdown-item" href="{% url 'product' id=4  %}">Espresso</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'products' %}">All Products</a>
                 </div>

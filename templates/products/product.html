@@ -13,16 +13,16 @@
 
                 <div class="card mb-3 w-100" >
                   <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{%  static 'img/pro1.jpg' %}" class="card-img" alt="...">
+                    <div class="col-md-4   ">
+                      <img src="{{ item.photo.url }}" class="card-img" alt="{{ item.name }}">
                     </div>
                     <div class="col-md-8">
                       <div class="card-body">
-                        <h5 class="card-title" id="productName">Product Name</h5>
+                        <h5 class="card-title" id="productName">{{ item.name }}</h5>
                         <hr>
-                        <p class="card-text" id="description">Description</p>
+                        <p class="card-text" id="description">{{ item.description }}</p>
                         <hr>
-                        <p class="card-text">Current Price: <span id="price" class="bg-dark text-light rounded-circle p-2">$10</span></p>
+                        <p class="card-text">Current Price: <span id="price" class="bg-dark text-light rounded-circle p-2">{{ item.price }}</span></p>
                         <hr>
                         <button type="submit" class="btn btn-warning">Add To Cart</button>
                         <button type="submit" class="btn btn-warning text-white">
