@@ -95,9 +95,3 @@ start firefox https://www.google.co.in/
 
 {% include 'partials/_navebar.html' %}
 {% block content %} {% endblock %}
-
-
-
-
-
-
