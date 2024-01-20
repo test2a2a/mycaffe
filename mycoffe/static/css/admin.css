@@ -1,0 +1,20 @@
+#header{
+    background: #5A020Cce; 
+    color: rgb(250, 250, 250);
+}
+#head{
+    color: rgb(250, 250, 250);
+}
+
+.module h2, .module caption, .inline-group h2{
+    background: #5A020Cce; 
+
+}
+
+div.breadcrumbs{
+    background: #963b46ce;  
+}
+
+.selector-chosen h2 {
+    background: #963b46ce;  
+}
