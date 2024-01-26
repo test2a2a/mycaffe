@@ -22,10 +22,13 @@
 <br>
 
 <div class="my-form container p-5 my-5 rounded border border-warning">
+   
     <form>
         <h2 class="text-center">Sign In</h2>
         <hr>
-
+                
+        {%  include 'partials/_alerts.html' %}
+        
         <div class="form-group">
             <label for="inputUsername">Username</label>
             <input type="text" class="form-control" id="inputUsername" placeholder="" required>
