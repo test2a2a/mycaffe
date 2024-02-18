@@ -20,20 +20,35 @@ def signup(request):                 #     first_name,last_name,address_1,addres
         password=request.POST["password"]
         first_name=request.POST["first_name"]
         last_name=request.POST["last_name"]
-        user=User.objects.create_user(username, email, password)
-        user.first_name=first_name
-        user.last_name=last_name
-        user.save()
+
+      
+        if (User.objects.filter(username=username).exists() ):
+            messages.error(request,"THIS USERNAME IS TOKEN")
+            return redirect("signup")
+        elif (User.objects.filter(email=email).exists() ):
+            messages.error(request,"THIS EMAIL IS TOKEN")
+            return redirect("signup")
+        else:
+
+            user=User.objects.create_user(username, email, password)
+            user.first_name=first_name
+            user.last_name=last_name
+            user.save()
+
+            if "check" in request.POST:
+                check= True 
+            else:
+                check= False 
         
-        data={ "user":user,
-               "address":request.POST["address_1"],
-               "address2":request.POST["address_2"],
-               "city":request.POST["city"],
-               "state":request.POST["state"],
-               "zip":request.POST["zip"],
-               "agree": True if request.POST["agree"]=="on" else False,
-              
-              }
+            data={ "user":user,
+                "address":request.POST["address_1"],
+                "address2":request.POST["address_2"],
+                "city":request.POST["city"],
+                "state":request.POST["state"],
+                "zip":request.POST["zip"],
+                "agree": check,
+                
+                }
         
         # try:
         #     pass
