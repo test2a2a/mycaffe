@@ -33,11 +33,18 @@
                 Join us
                 </a>
                 <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'signin' %}">Sign in</a>
-                <a class="dropdown-item" href="{% url 'signup' %}">Sign up</a>
-                <div class="dropdown-divider"></div>
+                  {% if user.is_authenticated %}
+                  <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+
+                  {% else %}
+                  <a class="dropdown-item" href="{% url 'signin' %}">Sign in</a>
+                  <a class="dropdown-item" href="{% url 'signup' %}">Sign up</a>
+                  {% endif %}
+                
+                <!-- <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                </div>
+                </div> -->
               </li>
 
               <li 
