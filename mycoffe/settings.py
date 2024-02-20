@@ -146,3 +146,8 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# when close session logout user
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

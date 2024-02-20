@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from .models import User_Info
+from django.contrib.auth.decorators import login_required 
 # Create your views here.
 
 def signin(request):
@@ -11,6 +12,9 @@ def signin(request):
         password=request.POST["password"]
         user=authenticate(username=username,password=password)
         if user:
+            if "rememberme"  not in request.POST:
+                # request.session.set_expiry(0)
+                print("xxxx")
             login(request,user)
             return redirect("profile")
         else:
@@ -91,5 +95,65 @@ def signup(request):                 #     first_name,last_name,address_1,addres
 def logout_(request):
     logout(request)
     return redirect('signin')
+@login_required
 def profile(request):
-    return render(request,"accounts/profile.html")
+     user_=User.objects.get(id=request.user.id)
+     if request.method =="POST":
+        
+       
+        user_.first_name=request.POST["first_name"]
+        user_.last_name=request.POST["last_name"]
+        # password=request.POST["password"]
+
+        user_.save()
+      
+
+        try:
+            user_info=User_Info.objects.get(user=request.user)
+
+            user_info.address=request.POST["address_1"]
+            user_info.address2=request.POST["address_2"]
+            user_info.city=request.POST["city"]
+            user_info.state=request.POST["state"]
+            user_info.zip_number=request.POST["zip"]
+            user_info.save()
+            messages.success(request," data is saved")
+            return redirect("profile")
+            
+
+        except :
+
+           
+
+            data={ "user":user_,
+            "address":request.POST["address_1"],
+            "address2":request.POST["address_2"],
+            "city":request.POST["city"],
+            "state":request.POST["state"],
+            "zip":request.POST["zip"],
+            "agree": True,
+            
+            }
+      
+
+            user_info=User_Info()
+            user_info.add_info(**data)
+            user_info.save()
+            messages.success(request,"success! data is saved")
+            return redirect("profile")
+
+            
+        
+    
+     else:
+         try:
+            
+           user_info=User_Info.objects.get(user=request.user)
+         except :
+           user_info=""
+         data={"user_":user_,"user_info":user_info}
+         return render(request,"accounts/profile.html",data)
+     
+     
+#  User.password
+# user_info.add
