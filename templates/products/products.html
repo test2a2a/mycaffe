@@ -1,5 +1,10 @@
 {% extends  'base.html'  %}
 {% load static %}
+
+{% block title %} products {% endblock %}
+
+
+
 {% block content %}
 
 
@@ -15,7 +20,7 @@
                {%  for product in products  %}
                   <div>
                     <div class="card m-2" style="width: 18rem;">
-                      <img src="{{ product.photo.url }}" class="card-img-top" alt="{{product.name}}">
+                      <a href="{% url 'product' product.id %}"><img src="{{ product.photo.url }}" class="card-img-top" alt="{{product.name}}"></a>
                       <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text text-truncate ">{{product.description}}</p>
@@ -23,6 +28,10 @@
                       </div>
                     </div>
                   </div>
+               {%  empty   %}   
+               <h4 class="alert  alert-warning  " >no products here
+                <a href="{% url 'products' %}" class="text-dark"> ALL products</a>
+               </h4>
                {%  endfor   %}
     
               </div>

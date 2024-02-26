@@ -86,6 +86,8 @@
                   <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
                   
                     <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                    <a class="dropdown-item" href="{% url 'show_product_favorites' %}">my favorite</a>
+
                     <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
                   </div>
                 {% else %}

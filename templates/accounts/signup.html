@@ -1,5 +1,9 @@
 {% extends  'base.html'  %}
 
+{% block title %} signup {% endblock %}
+
+
+
 {% block content %}
 
 <div class="my-form container p-5 my-5 rounded border border-warning">
@@ -7,16 +11,7 @@
         {% csrf_token %}
         <h2 class="text-center">Sign Up</h2>
         <hr>
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-
-            {% endfor %}
-
-        {% endif %}
-<!--      first_name,last_name,address_1,address_2,city,state,zip,email,username ,password  ,agree                  -->
+        {%  include 'partials/_alerts.html' %}
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputFirstName">First Name</label>

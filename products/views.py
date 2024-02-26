@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Product
+from accounts.models import User_Info
 # Create your views here.
 def products(request):
     if "product_name" in request.GET and request.GET["product_name"]!= "":
@@ -30,7 +31,9 @@ def products(request):
     return render(request,'products/products.html' ,context={"products":data})
 
 def product(request,id):
-    context={"item":get_object_or_404(Product,id=id)}
+    favorite=1 if User_Info.objects.filter(user=request.user,product_favorites=id).exists() else 0
+
+    context={"item":get_object_or_404(Product,id=id),"favorite":favorite}
     
     return render(request,'products/product.html', context)
 

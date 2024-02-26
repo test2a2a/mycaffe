@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from .models import User_Info
+from .models import User_Info,Product
 from django.contrib.auth.decorators import login_required 
 # Create your views here.
 
@@ -95,6 +95,8 @@ def signup(request):                 #     first_name,last_name,address_1,addres
 def logout_(request):
     logout(request)
     return redirect('signin')
+
+
 @login_required
 def profile(request):
      user_=User.objects.get(id=request.user.id)
@@ -103,10 +105,11 @@ def profile(request):
        
         user_.first_name=request.POST["first_name"]
         user_.last_name=request.POST["last_name"]
-        # password=request.POST["password"]
+        if(not request.POST["password"].startswith("pbkdf2_sha256$")):
+              user_.set_password(request.POST["password"]) 
+              login(request,user_)
 
         user_.save()
-      
 
         try:
             user_info=User_Info.objects.get(user=request.user)
@@ -157,3 +160,28 @@ def profile(request):
      
 #  User.password
 # user_info.add
+
+@login_required
+def add_product_favorites(request ,id):
+    pro_id=Product.objects.get(id=id)#id pk
+    if User_Info.objects.filter(user=request.user,product_favorites=pro_id).exists():
+        user=User_Info.objects.get(user=request.user)
+        user.product_favorites.remove(pro_id)
+        messages.success(request,"product has been deleted")
+
+        # messages.error(request,"this product in the favorite list")
+    else:
+        user=User_Info.objects.get(user=request.user)
+        user.product_favorites.add(pro_id)
+        messages.success(request," product has been favorited")
+    return redirect("/products/"+str(id))    
+
+@login_required
+def show_product_favorites(request ):
+       user_=User_Info.objects.get(user=request.user) 
+       
+ 
+
+       return render(request,'products/products.html' ,context={"products":user_.product_favorites.all()})
+   
+
