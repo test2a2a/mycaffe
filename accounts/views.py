@@ -16,7 +16,7 @@ def signin(request):
                 # request.session.set_expiry(0)
                 print("xxxx")
             login(request,user)
-            return redirect("profile")
+            return redirect("index")#profile
         else:
             messages.error(request,"the username or password invalid")
     # messages.info(request,"info")

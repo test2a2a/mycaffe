@@ -1,6 +1,8 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Product
 from accounts.models import User_Info
+from django.contrib.auth.decorators import login_required 
+
 # Create your views here.
 def products(request):
     if "product_name" in request.GET and request.GET["product_name"]!= "":
@@ -30,8 +32,11 @@ def products(request):
     
     return render(request,'products/products.html' ,context={"products":data})
 
+@login_required
 def product(request,id):
+    
     favorite=1 if User_Info.objects.filter(user=request.user,product_favorites=id).exists() else 0
+    # context={"item":Product.objects.get(id=id),"favorite":favorite}
 
     context={"item":get_object_or_404(Product,id=id),"favorite":favorite}
     

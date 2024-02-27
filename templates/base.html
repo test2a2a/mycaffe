@@ -23,6 +23,17 @@
             $('[data-toggle="popover"]').popover()
         })
         $(".year").text( (new Date).getFullYear() );
+
+        $(document).ready(function(){
+            $('#exampleModal').on('shown.bs.modal', function () {
+            $(this).find('#input_qty').focus();
+            // $(this).find('#input_qty').select();
+            });
+        });
+
+      
+
+
     </script>
 
 </body>

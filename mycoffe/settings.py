@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'pages',
     'accounts',
     'products',
+    'orders'
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,10 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+# LOGIN_REDIRECT_URL="products" # redirect after signin
+LOGIN_URL="signin" # @login_required
 
 # when close session logout user
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
