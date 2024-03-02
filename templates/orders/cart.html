@@ -8,6 +8,63 @@
 <div class="my-content container p-5 my-5 rounded border border-warning">
     <h2 class="text-center">mycart</h2>
     <hr>
+    {%  if order %}
+    <h5>
+        FULL NAME: {{order.user.first_name| add:' '|add:order.user.last_name}}
+        <hr>
+        order number : {{order.id}} with  total {{ total }}$
+    </h5>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">image</th>
+                <th scope="col">price</th>
+                <th scope="col">quantity</th>
+                <th scope="col">subtotals</th>
+                <th scope="col">remove</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                {% for i in order_detail %}
+                    <tr >
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{i.product.name}}</td>
+                        <td><img src="{{i.product.photo.url }}" style="width: 80; height: 80px;" alt=""></td>
+                        <td>{{i.price}} $</td>
+                        <td>
+                            {% if i.quantity == 1 %}
+                            <a class="btn btn-outline-danger btn-sm disabled   " href="{% url 'sub_quantity' i.id %}">-</a>
+                            {% else %}
+                            <a class="btn btn-outline-danger btn-sm   " href="{% url 'sub_quantity' i.id %}">-</a>
+                            {% endif %}
+
+                            {{i.quantity}}
+                            <a class="btn btn-outline-danger btn-sm " href="{% url 'add_quantity' i.id %}">+</a>
+
+                        
+                        </td>
+                        <td  style="font-weight: bold; color: darkred;" >{% widthratio i.price 1 i.quantity  %} $</td>
+                        <td><a  class="btn btn-outline-danger btn-sm " href="{% url 'delete_item' i.id %}">remove</a></td>
+                    </tr>
+                {% endfor %}
+
+           
+            </tbody>
+        </table>
+    {% else %}
+       <h4 class="alert  alert-warning  " >no products here
+         <a href="{% url 'products' %}" class="text-dark"> NO orders here</a>
+       </h4>
+    {% endif %}
+
+
+
+
+ 
 
 </div>
 

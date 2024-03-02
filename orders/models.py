@@ -20,5 +20,8 @@ class OrderDetails(models.Model):
     price = models.DecimalField( max_digits=6 , decimal_places=2 )
     quantity=models.IntegerField()
 
+    class Meta:
+        ordering=["id"]
+
     # def __str__(self):
     #     return "u_"+self.order.user.username+"_p_"+str(self.product.name)+"_o_"+str(self.id)
