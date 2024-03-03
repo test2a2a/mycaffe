@@ -10,9 +10,14 @@
     <hr>
     {%  if order %}
     <h5>
-        FULL NAME: {{order.user.first_name| add:' '|add:order.user.last_name}}
+        FULL NAME: <span class="my-num">{{order.user.first_name| add:' '|add:order.user.last_name}} </span> 
+        <a  class="btn btn-outline-warning  float-right " href="{% url 'products' %}"> Continue Shopping</a>
+        <a  class="btn btn-outline-secondary   float-right mx-1" href="{% url 'payment' %}"> Checkout  </a>
+
+        <br> 
         <hr>
-        order number : {{order.id}} with  total {{ total }}$
+        order number : <span class="my-num">{{order.id}} </span> with total <span class="my-num">{{ total }}$</span>
+        for : <span class="my-num">{{  order_detail.count}} </span> products
     </h5>
 
         <table class="table table-hover">
@@ -47,7 +52,7 @@
 
                         
                         </td>
-                        <td  style="font-weight: bold; color: darkred;" >{% widthratio i.price 1 i.quantity  %} $</td>
+                        <td  style="font-weight: bold; color: darkred;" >{{ i.total }} $</td>
                         <td><a  class="btn btn-outline-danger btn-sm " href="{% url 'delete_item' i.id %}">remove</a></td>
                     </tr>
                 {% endfor %}

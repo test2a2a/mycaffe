@@ -78,6 +78,9 @@ python manage.py migrate
 pip list
 pip freeze > requirements.txt
 pip3 install -r requirements.txt
+
+
+pip install django-credit-cards 
 ---------------------
 rm db.sqlite3
 
@@ -95,3 +98,7 @@ start firefox https://www.google.co.in/
 
 {% include 'partials/_navebar.html' %}
 {% block content %} {% endblock %}
+
+
+
+{% widthratio i.price 1 i.quantity  %} 

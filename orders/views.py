@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from products.models import Product
-from . models import Orders,OrderDetails
+from . models import Orders,OrderDetails,Payment
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required 
 # Create your views here.
@@ -44,12 +44,16 @@ def add_to_cart(request):
 @login_required
 def my_cart(request):
     data=None
+    total=0
     if  Orders.objects.all().filter(user=request.user,is_finished=False):
         order=Orders.objects.get(user=request.user,is_finished=False)
         order_detail=OrderDetails.objects.all().filter(order=order)
-        total=0
+        temp=0
         for i in order_detail:
             total+=i.price*i.quantity
+            temp=total-temp
+            i.total=temp
+          
         data={"order":order,
             "order_detail":order_detail,
             "total":total}
@@ -76,3 +80,61 @@ def sub_quantity(request,id):
           order_detail.quantity-=1
           order_detail.save()
       return redirect('my_cart')
+
+
+
+
+def payment(request):
+    data=None
+    if request.method=="POST" :#and "btnpayment" in request.POST:
+        #  if "ship_address" in request.POST and "ship_phone" in request.POST and "card_number" in request.POST and "expire" in request.POST and "csv" in request.POST :
+            ship_address=request.POST["ship_address"]
+            ship_phone=request.POST["ship_phone"]
+            card_number=request.POST["card_number"]
+            expire=request.POST["expire"]
+            security_code=request.POST["csv"]
+            if  Orders.objects.all().filter(user=request.user,is_finished=False):
+                order=Orders.objects.get(user=request.user,is_finished=False)
+                print("a1")
+                payment=Payment(order=order,shipment_address=ship_address,shipment_phone=ship_phone,card_number=card_number,expire=expire,security_code=security_code)
+                payment.save()
+                print("a2")
+                order.is_finished=True
+                order.save()
+                messages.success(request,"your order is finished")
+                return redirect("my_order")
+
+    else:
+        if  Orders.objects.all().filter(user=request.user,is_finished=False):
+            order=Orders.objects.get(user=request.user,is_finished=False)
+            order_detail=OrderDetails.objects.all().filter(order=order)
+            total=0
+            for i in order_detail:
+                total+=i.price*i.quantity
+            data={"order":order,
+                "order_detail":order_detail,
+                "total":total}
+
+    return render(request,"orders/payment.html",data)
+
+
+
+
+def show_orders(request):
+        data=None
+        # order=None
+        # order_detail=None
+    #  if  Orders.objects.all().filter(user=request.user,is_finished=False):
+        orders=Orders.objects.all().filter(user=request.user)
+        if  orders:
+           for x in orders:
+                order=Orders.objects.get(id=x.id)
+                order_detail=OrderDetails.objects.all().filter(order=order)
+                total=0
+                for i in order_detail:
+                    total+=i.price*i.quantity
+                x.total=total
+                x.items_count =order_detail.count
+              
+        data={"order":orders}
+        return render(request,"orders/show_order.html",data)
